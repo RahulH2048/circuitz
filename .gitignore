@@ -1,2 +1,4 @@
 .zed/
 .clangd
+build/
+input/
