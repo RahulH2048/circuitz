@@ -1,4 +1,5 @@
 #pragma once
+#include "graph.h"
 #include <unordered_map>
 
 class Circuit {
@@ -25,11 +26,13 @@ class Circuit {
 
     std::unordered_map<int, Element> element_list;
 
+    Graph circuit_graph;
+
     public:
 
     void load(std::string file_path);
 
-    bool verifyKCL();
+    bool satisfiesKCL();
 
-    bool verifyKVL();
+    bool satisfiesKVL();
 };

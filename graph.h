@@ -8,31 +8,31 @@ class Graph
 
     struct Vertex
     {
-        unsigned int connecting_edge;
-        unsigned int id;
+        int connecting_edge;
+        int id;
     };
 
     struct Edge
     {
-        unsigned int id;
-        unsigned int vertex_1;
-        unsigned int vertex_2;
+        int id;
+        int vertex_1;
+        int vertex_2;
     };
 
     private:
 
-    std::unordered_map<unsigned int, std::vector<Vertex>> graph;
+    std::unordered_map<int, std::vector<Vertex>> graph;
 
     std::vector<Edge> cycle_edge_list;
 
-    std::vector<unsigned int> find_cycle(unsigned int start_vertex, unsigned int end_vertex, unsigned int cycle_edge);
+    std::vector<int> find_cycle(int start_vertex, int end_vertex, int cycle_edge);
 
     public:
 
-    void add_edge(unsigned int edge_id, unsigned int vertex_1, unsigned int vertex_2);
+    void add_edge(int edge_id, int vertex_1, int vertex_2);
 
-    const std::unordered_map<unsigned int, std::vector<Vertex>> adjacency_list();
+    const std::unordered_map<int, std::vector<Vertex>> adjacency_list();
 
-    std::vector<std::vector<unsigned int>> cycles();
+    std::vector<std::vector<int>> cycles();
 
 };

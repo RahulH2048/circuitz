@@ -14,13 +14,11 @@ void Circuit::load(std::string file_path)
     while(std::getline(input_stream, buffer))
     {
         std::stringstream buffer_stream(buffer);
-
         std::string token;
 
         int token_index = 0;
 
         int element_id;
-
         Element element;
 
         while(std::getline(buffer_stream, token, ','))
@@ -70,17 +68,35 @@ void Circuit::load(std::string file_path)
         }
 
         element_list.insert({element_id, element});
+
+        circuit_graph.add_edge(element_id, element.node_pos, element.node_neg);
+    }
+}
+
+bool Circuit::satisfiesKCL()
+{
+    for (std::pair<int, std::vector<Graph::Vertex>> pair : circuit_graph.adjacency_list())
+    {
+        double net_current = 0;
+
+        for (Graph::Vertex vertex : pair.second)
+        {
+            double element_current = element_list.at(vertex.connecting_edge).current;
+
+            int polarity = element_list.at(vertex.connecting_edge).node_pos == vertex.id ? -1 : 1;
+            net_current += (element_current * polarity);
+        }
+
+        if (net_current != 0)
+        {
+            return false;
+        }
     }
 
-    return;
+    return true;
 }
 
-bool Circuit::verifyKCL()
-{
-    return false;
-}
-
-bool Circuit::verifyKVL()
+bool Circuit::satisfiesKVL()
 {
     return false;
 }

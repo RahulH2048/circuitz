@@ -1,4 +1,3 @@
-#include "graph.h"
 #include "circuit.h"
 
 int main()

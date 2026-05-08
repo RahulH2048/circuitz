@@ -4,18 +4,18 @@
 #include <unordered_map>
 #include <vector>
 
-std::vector<unsigned int> Graph::find_cycle(unsigned int start_vertex, unsigned int end_vertex, unsigned int cycle_edge)
+std::vector<int> Graph::find_cycle(int start_vertex, int end_vertex, int cycle_edge)
 {
-    std::stack<unsigned int> frontier;
-    std::unordered_map<unsigned int, Vertex> traversal_map;
+    std::stack<int> frontier;
+    std::unordered_map<int, Vertex> traversal_map;
     frontier.push(start_vertex);
 
-    unsigned int prev_vertex = start_vertex;
+    int prev_vertex = start_vertex;
 
     // DFS while memorising which edge takes you back to the start_vertex
     while (!frontier.empty())
     {
-        unsigned int current_vertex = frontier.top();
+        int current_vertex = frontier.top();
         frontier.pop();
 
         if (current_vertex == end_vertex)
@@ -38,7 +38,7 @@ std::vector<unsigned int> Graph::find_cycle(unsigned int start_vertex, unsigned 
         prev_vertex = current_vertex;
     }
 
-    std::vector<unsigned int> path_edge_list;
+    std::vector<int> path_edge_list;
 
     // Backtracking starting from end_vertex
     // Follow the traversal map from end_vertex until start_vertex
@@ -56,7 +56,7 @@ std::vector<unsigned int> Graph::find_cycle(unsigned int start_vertex, unsigned 
     return path_edge_list;
 }
 
-void Graph::add_edge(unsigned int edge_id, unsigned int vertex_1, unsigned int vertex_2)
+void Graph::add_edge(int edge_id, int vertex_1, int vertex_2)
 {
     if (graph.contains(vertex_1) && graph.contains(vertex_2))
     {
@@ -80,9 +80,9 @@ void Graph::add_edge(unsigned int edge_id, unsigned int vertex_1, unsigned int v
 }
 
 // Returns all cycles in the graph
-std::vector<std::vector<unsigned int>> Graph::cycles()
+std::vector<std::vector<int>> Graph::cycles()
 {
-    std::vector<std::vector<unsigned int>> cycle_list;
+    std::vector<std::vector<int>> cycle_list;
 
     for (Edge edge : cycle_edge_list)
     {
@@ -93,9 +93,9 @@ std::vector<std::vector<unsigned int>> Graph::cycles()
 }
 
 // Return adjacency list for entire graph (incuding cycle edges)
-const std::unordered_map<unsigned int, std::vector<Graph::Vertex>> Graph::adjacency_list()
+const std::unordered_map<int, std::vector<Graph::Vertex>> Graph::adjacency_list()
 {
-    std::unordered_map<unsigned int, std::vector<Vertex>> adjacency_list = graph;
+    std::unordered_map<int, std::vector<Vertex>> adjacency_list = graph;
 
     for (Edge edge : cycle_edge_list)
     {
