@@ -6,54 +6,61 @@
 
 std::vector<int> Graph::find_cycle(int start_vertex, int end_vertex, int cycle_edge)
 {
-    std::stack<int> frontier;
-    std::unordered_map<int, Vertex> traversal_map;
-    frontier.push(start_vertex);
+    struct SearchState
+    {
+        int current_vertex;
+        int prev_vertex;
+    };
 
-    int prev_vertex = start_vertex;
+    std::stack<SearchState> frontier;
+    std::unordered_map<int, Vertex> traversal_map;
+
+    frontier.push(SearchState{start_vertex, start_vertex});
 
     // DFS while memorising which edge takes you back to the start_vertex
     while (!frontier.empty())
     {
-        int current_vertex = frontier.top();
+        SearchState state = frontier.top();
         frontier.pop();
 
-        if (current_vertex == end_vertex)
+        if (state.current_vertex == end_vertex)
         {
             break;
         }
 
-        // when doing DFS through a tree every neighbour vertex will be new except for vertex we came from
-        for (Vertex vertex : graph.at(current_vertex))
+        for (Vertex vertex : graph.at(state.current_vertex))
         {
-            if (vertex.id == prev_vertex)
+            if (vertex.id == state.prev_vertex)
             {
                 continue;
             }
 
-            frontier.push(vertex.id);
-            traversal_map.insert({vertex.id, Vertex{vertex.connecting_edge, current_vertex}});
+            frontier.push(SearchState{vertex.id, state.current_vertex});
+            traversal_map.insert({vertex.id, Vertex{vertex.connecting_edge, state.current_vertex}});
         }
-
-        prev_vertex = current_vertex;
     }
 
-    std::vector<int> path_edge_list;
+    std::vector<int> path;
 
     // Backtracking starting from end_vertex
     // Follow the traversal map from end_vertex until start_vertex
-    while (end_vertex != start_vertex)
+
+    int current_vertex = end_vertex;
+
+    while (current_vertex != start_vertex)
     {
-        Vertex current_vertex = traversal_map.at(end_vertex);
+        Vertex next_vertex = traversal_map.at(current_vertex);
 
-        path_edge_list.push_back(current_vertex.connecting_edge);
+        path.push_back(current_vertex);
+        path.push_back(next_vertex.connecting_edge);
 
-        end_vertex = current_vertex.id;
+        current_vertex = next_vertex.id;
     }
 
-    path_edge_list.push_back(cycle_edge);
+    path.push_back(current_vertex);
+    path.push_back(cycle_edge);
 
-    return path_edge_list;
+    return path;
 }
 
 void Graph::add_edge(int edge_id, int vertex_1, int vertex_2)

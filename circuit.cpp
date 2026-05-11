@@ -47,12 +47,12 @@ void Circuit::load(std::string file_path)
 
                 case TokenType::NODE_POS:
 
-                    element.node_neg = std::stoi(token);
+                    element.node_pos = std::stoi(token);
                     break;
 
                 case TokenType::NODE_NEG:
 
-                    element.node_pos = std::stoi(token);
+                    element.node_neg = std::stoi(token);
                     break;
 
                 default:
@@ -98,5 +98,25 @@ bool Circuit::satisfiesKCL()
 
 bool Circuit::satisfiesKVL()
 {
-    return false;
+    for (std::vector<int> independent_loop : circuit_graph.cycles())
+    {
+        double net_voltage = 0;
+
+        for (int i = 0; i < independent_loop.size(); i+=2)
+        {
+            int node = independent_loop[i];
+            int element = independent_loop[i + 1];
+
+            int polarity = element_list.at(element).node_pos == node ? 1 : -1;
+
+            net_voltage += element_list.at(element).voltage * polarity;
+        }
+
+        if (net_voltage != 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
