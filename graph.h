@@ -4,8 +4,7 @@
 
 class Graph
 {
-    public:
-
+  public:
     struct Vertex
     {
         int connecting_edge;
@@ -19,20 +18,17 @@ class Graph
         int vertex_2;
     };
 
-    private:
-
+  private:
     std::unordered_map<int, std::vector<Vertex>> graph;
 
     std::vector<Edge> cycle_edge_list;
 
     std::vector<int> find_cycle(int start_vertex, int end_vertex, int cycle_edge);
 
-    public:
-
+  public:
     void add_edge(int edge_id, int vertex_1, int vertex_2);
 
     const std::unordered_map<int, std::vector<Vertex>> adjacency_list();
 
     std::vector<std::vector<int>> cycles();
-
 };

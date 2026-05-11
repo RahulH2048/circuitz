@@ -1,12 +1,30 @@
 #include "circuit.h"
 
-int main()
+#include <iostream>
+
+int main(int argc, char *argv[])
 {
     Circuit circuit;
 
-    circuit.load("input/c1");
+    circuit.load(argv[1]);
 
-    circuit.satisfiesKVL();
+    if (circuit.satisfiesKCL())
+    {
+        std::cout << "KCL: \u2714" << std::endl;
+    }
+    else
+    {
+        std::cout << "KCL \u2718" << std::endl;
+    }
+
+    if (circuit.satisfiesKVL())
+    {
+        std::cout << "KVL \u2714" << std::endl;
+    }
+    else
+    {
+        std::cout << "KVL \u2718" << std::endl;
+    }
 
     return 0;
 }

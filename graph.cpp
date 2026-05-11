@@ -81,7 +81,6 @@ void Graph::add_edge(int edge_id, int vertex_1, int vertex_2)
         graph.insert({vertex_2, {}});
     }
 
-
     graph.at(vertex_1).push_back(Vertex{edge_id, vertex_2});
     graph.at(vertex_2).push_back(Vertex{edge_id, vertex_1});
 }

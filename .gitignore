@@ -1,4 +1,5 @@
 .zed/
 .clangd
+.clang-format
 build/
 input/

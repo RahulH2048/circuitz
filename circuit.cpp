@@ -1,8 +1,8 @@
+#include "circuit.h"
+
 #include <fstream>
 #include <sstream>
 #include <string>
-
-#include "circuit.h"
 
 #define ELEMENT_MEMBER_COUNT 6
 
@@ -11,7 +11,7 @@ void Circuit::load(std::string file_path)
     std::ifstream input_stream(file_path);
     std::string buffer;
 
-    while(std::getline(input_stream, buffer))
+    while (std::getline(input_stream, buffer))
     {
         std::stringstream buffer_stream(buffer);
         std::string token;
@@ -21,42 +21,42 @@ void Circuit::load(std::string file_path)
         int element_id;
         Element element;
 
-        while(std::getline(buffer_stream, token, ','))
+        while (std::getline(buffer_stream, token, ','))
         {
             switch (token_index)
             {
-                case TokenType::EDGE_ID:
+            case TokenType::EDGE_ID:
 
-                    element_id = std::stoi(token);
-                    break;
+                element_id = std::stoi(token);
+                break;
 
-                case TokenType::VOLTAGE:
+            case TokenType::VOLTAGE:
 
-                    element.voltage = std::stod(token);
-                    break;
+                element.voltage = std::stod(token);
+                break;
 
-                case TokenType::CURRENT:
+            case TokenType::CURRENT:
 
-                    element.current = std::stod(token);
-                    break;
+                element.current = std::stod(token);
+                break;
 
-                case TokenType::RESISTANCE:
+            case TokenType::RESISTANCE:
 
-                    element.resistance = std::stod(token);
-                    break;
+                element.resistance = std::stod(token);
+                break;
 
-                case TokenType::NODE_POS:
+            case TokenType::NODE_POS:
 
-                    element.node_pos = std::stoi(token);
-                    break;
+                element.node_pos = std::stoi(token);
+                break;
 
-                case TokenType::NODE_NEG:
+            case TokenType::NODE_NEG:
 
-                    element.node_neg = std::stoi(token);
-                    break;
+                element.node_neg = std::stoi(token);
+                break;
 
-                default:
-                    return;
+            default:
+                return;
             }
 
             token_index++;
@@ -102,7 +102,7 @@ bool Circuit::satisfiesKVL()
     {
         double net_voltage = 0;
 
-        for (int i = 0; i < independent_loop.size(); i+=2)
+        for (int i = 0; i < independent_loop.size(); i += 2)
         {
             int node = independent_loop[i];
             int element = independent_loop[i + 1];

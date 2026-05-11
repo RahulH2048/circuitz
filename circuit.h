@@ -2,9 +2,9 @@
 #include "graph.h"
 #include <unordered_map>
 
-class Circuit {
-    private:
-
+class Circuit
+{
+  private:
     struct Element
     {
         double voltage;
@@ -28,8 +28,7 @@ class Circuit {
 
     Graph circuit_graph;
 
-    public:
-
+  public:
     void load(std::string file_path);
 
     bool satisfiesKCL();
