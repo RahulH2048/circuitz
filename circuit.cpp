@@ -73,6 +73,21 @@ void Circuit::load(std::string file_path)
     }
 }
 
+bool Circuit::satisfiesOhmsLaw()
+{
+    for (std::pair<int, Element> element : element_list)
+    {
+        double voltage = std::abs(element.second.current) * element.second.resistance;
+
+        if (voltage != element.second.voltage)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 bool Circuit::satisfiesKCL()
 {
     for (std::pair<int, std::vector<Graph::Vertex>> pair : circuit_graph.adjacency_list())

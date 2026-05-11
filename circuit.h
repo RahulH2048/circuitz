@@ -31,6 +31,8 @@ class Circuit
   public:
     void load(std::string file_path);
 
+    bool satisfiesOhmsLaw();
+
     bool satisfiesKCL();
 
     bool satisfiesKVL();
