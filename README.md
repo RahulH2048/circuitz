@@ -2,9 +2,19 @@
 
 circuitz is a program that analyses electrical circuits and determines whether or not they are valid circuits. To do this it checks two categories of constraints:
 
+## Terminology
+
+- A **node** is a section of wire between elements
+- An **element** is a device connected between at least two nodes they can be things like batteries, resistors, diodes etc.
+
+![Node: Colored Segments](https://cdn.sparkfun.com/assets/8/8/0/c/0/51b9edffce395f3630000002.png)
+
+**Node**: Colored segments
+**Element**: Red labelled objects
+
 ## Element Constraints
 
-Circuit elements refer to things like batteries, resistors, diodes etc. Each element can be defined by these three values:
+Each element is defined by these three values:
 
 - Voltage
 - Current
@@ -18,12 +28,7 @@ This law is called **Ohm's Law**.
 
 ## Connection Constraints
 
-Analysing connection constraints requires the consideration these two concepts:
-
-- A **node** is a section of wire between **elements** (colored segments in image)
-- **elements** are the devices between these **nodes** (black objects in image)
-
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Nodes2.svg/3840px-Nodes2.svg.png)
+Analysing connection constraints requires the consideration of these two concepts:
 
 There are two constraints that must be checked here:
 
